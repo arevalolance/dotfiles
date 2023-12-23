@@ -8,9 +8,9 @@ local setupConfig = function()
 
 	local signs = {
 		{ name = "DiagnosticSignError", text = icons.Error },
-		{ name = "DiagnosticSignWarn", text = icons.Warn },
-		{ name = "DiagnosticSignInfo", text = icons.Info },
-		{ name = "DiagnosticSignHint", text = icons.Hint },
+		{ name = "DiagnosticSignWarn",  text = icons.Warn },
+		{ name = "DiagnosticSignInfo",  text = icons.Info },
+		{ name = "DiagnosticSignHint",  text = icons.Hint },
 	}
 
 	for _, sign in ipairs(signs) do
@@ -23,12 +23,12 @@ local setupConfig = function()
 		update_in_insert = false,
 		underline = true,
 		severity_sort = true,
-		float = {
-			border = "rounded",
-			source = "always",
-			header = "",
-			prefix = "",
-		},
+		-- float = {
+		-- 	border = "rounded",
+		-- 	source = "always",
+		-- 	header = "",
+		-- 	prefix = "",
+		-- },
 	}
 
 	vim.diagnostic.config(config)
@@ -64,7 +64,7 @@ return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		{ "williamboman/mason.nvim", build = ":MasonUpdate" },
-		{ "j-hui/fidget.nvim", opts = {}, tag = "legacy" },
+		{ "j-hui/fidget.nvim",       opts = {},             tag = "legacy" },
 		"williamboman/mason-lspconfig.nvim",
 		"davidosomething/format-ts-errors.nvim",
 		"princejoogie/tailwind-highlight.nvim",

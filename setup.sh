@@ -25,7 +25,7 @@ case $OS in
   Darwin)  # MacOS
     for dep in "${DEPS[@]}"; do
 
-      if ! [ -x "$(command -v "$dep")"; then
+      if ! [ -x "$(command -v "$dep")"]; then
 
         brew install "$dep"
       fi

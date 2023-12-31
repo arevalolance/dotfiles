@@ -16,8 +16,6 @@ plugins=(
     zsh-autosuggestions
 )
 
-source $ZSH/oh-my-zsh.sh
-
 OS=$(uname)
 case $OS in
 	Darwin)
@@ -39,3 +37,6 @@ eval "$(fnm env)"
 
 # bob export
 export PATH=$PATH:"$HOME/.local/share/bob/nvim-bin"
+
+source $ZSH/oh-my-zsh.sh
+

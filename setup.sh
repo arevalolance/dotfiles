@@ -1,13 +1,42 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Specify the path to your dotfiles folder
-dotfiles_path="$HOME/dotfiles"
+DEPS=("stow", "ripgrep", "curl", "jq")
 
-# Create symbolic links for nvim and alacritty in ~/.config
-ln -s "$dotfiles_path/nvim" "$HOME/.config/nvim"
-ln -s "$dotfiles_path/alacritty" "$HOME/.config/alacritty"
+. /etc/os-release
 
-ln -s "$dotfiles_path/.zshrc" "$HOME/.zshrc"
+case $ID in
+  ubuntu|debian)
+    for dep in "${DEPS[@]}"; do
+      if ! [ -x "$(command -v "$dep")" ]; then
+        sudo apt-get install "$dep" -y
+      fi
+    done
+  ;;
+  darwin*)  # MacOS
+    for dep in "${DEPS[@]}"; do
+      if ! [ -x "$(command -v "$dep")" ]; then
+        brew install "$dep"
+      fi
+    done
+  ;;
+  *)
+    echo "[❌] - Unsupported OS"
+    exit 1
 
-echo "Symbolic links created successfully!"
+  ;;
+esac
 
+cd $HOME/dotfiles
+
+stow nvim
+stow alacritty
+stow tmux
+
+rm -rf ~/.zshrc
+
+# install zsh-autosuggestions
+git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
+
+stow zsh
+
+echo "[✅] - Stowing done."

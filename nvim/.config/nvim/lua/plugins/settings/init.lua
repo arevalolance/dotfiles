@@ -23,12 +23,12 @@ local setupConfig = function()
 		update_in_insert = false,
 		underline = true,
 		severity_sort = true,
-		-- float = {
-		-- 	border = "rounded",
-		-- 	source = "always",
-		-- 	header = "",
-		-- 	prefix = "",
-		-- },
+		float = {
+			border = "rounded",
+			source = "always",
+			header = "",
+			prefix = "",
+		},
 	}
 
 	vim.diagnostic.config(config)

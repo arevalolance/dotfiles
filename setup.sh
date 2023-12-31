@@ -1,20 +1,32 @@
 #!/usr/bin/env bash
 
-DEPS=("stow", "ripgrep", "curl", "jq")
+DEPS=("stow" "ripgrep" "curl" "jq")
 
-. /etc/os-release
 
-case $ID in
-  ubuntu|debian)
-    for dep in "${DEPS[@]}"; do
-      if ! [ -x "$(command -v "$dep")" ]; then
-        sudo apt-get install "$dep" -y
-      fi
-    done
+OS=$(uname)
+
+case $OS in
+  Linux)
+    . /etc/os-release
+    case $ID in
+      ubuntu|debian)
+        for dep in "${DEPS[@]}"; do
+          if ! [ -x "$(command -v "$dep")" ]; then
+            sudo apt-get install "$dep" -y
+          fi
+        done
+      ;;
+      *)
+        echo "[❌] - Unsupported Linux OS"
+        exit 1
+      ;;
+    esac
   ;;
-  darwin*)  # MacOS
+  Darwin)  # MacOS
     for dep in "${DEPS[@]}"; do
-      if ! [ -x "$(command -v "$dep")" ]; then
+
+      if ! [ -x "$(command -v "$dep")"; then
+
         brew install "$dep"
       fi
     done
@@ -22,7 +34,6 @@ case $ID in
   *)
     echo "[❌] - Unsupported OS"
     exit 1
-
   ;;
 esac
 
@@ -40,3 +51,4 @@ git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUST
 stow zsh
 
 echo "[✅] - Stowing done."
+

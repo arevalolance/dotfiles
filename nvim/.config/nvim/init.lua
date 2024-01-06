@@ -13,7 +13,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("vim-options")
 require("lazy").setup("plugins")
-
 require("remap")
 
 -- The line beneath this is called `modeline`. See `:help modeline`

@@ -13,11 +13,14 @@ return {
 		-- snippet engine
 		'L3MON4D3/LuaSnip',
 		'saadparwaiz1/cmp_luasnip',
+		"rafamadriz/friendly-snippets",
 	},
 	config = function()
 		local cmp = require("cmp")
 		local lspkind = require("lspkind")
 		local luasnip = require("luasnip")
+
+		require("luasnip.loaders.from_vscode").lazy_load()
 
 		cmp.setup({
 			snippet = {
@@ -65,6 +68,7 @@ return {
 				{ name = "emoji",   insert = true },
 				{ name = "path" },
 				{ name = "luasnip" },
+				{ name = "codeium" },
 			}, {
 				{ name = "buffer" },
 				{ name = "spell" },
@@ -75,6 +79,7 @@ return {
 					mode = "symbol",
 					preset = "codicons",
 					maxwidth = 50,
+					symbol_map =  { Codeium = "", },
 					before = function(entry, vim_item)
 						vim_item.menu = ({
 							nvim_lsp = "[LSP ]",

@@ -47,7 +47,9 @@ font:
 
 window:
   opacity: 0.95
-  option_as_alt: Both
+
+env:
+  TERM: xterm-256color
 
 key_bindings:
   - { key: A, mods: Alt, chars: "\x1ba" }

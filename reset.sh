@@ -2,7 +2,6 @@
 
 # Define the list of files and directories to be deleted
 files_to_delete=(
-
   "$HOME/.tmux.conf"
   "$HOME/.config/nvim"
   "$HOME/.config/alacritty"
@@ -29,7 +28,6 @@ delete_files() {
 
 # Call the function to delete files and directories
 delete_files
-
 
 echo "Dotfiles reset complete."
 

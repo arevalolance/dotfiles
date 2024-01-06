@@ -52,14 +52,14 @@ return {
 					end,
 				}),
 			},
-			window = {
-				completion = {
-					border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-				},
-				documentation = {
-					border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-				},
-			},
+			-- window = {
+			-- 	completion = {
+			-- 		border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+			-- 	},
+			-- 	documentation = {
+			-- 		border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+			-- 	},
+			-- },
 		})
 
 		cmp.setup.filetype("gitcommit", {

@@ -22,18 +22,6 @@ return {
 		-- [[ Configure Telescope ]]
 		-- See `:help telescope` and `:help telescope.setup()`
 
-		require('telescope').setup {
-			defaults = {
-				mappings = {
-
-					i = {
-						['<C-u>'] = false,
-						['<C-d>'] = false,
-					},
-				},
-			},
-		}
-
 		-- Enable telescope fzf native, if installed
 		pcall(require('telescope').load_extension, 'fzf')
 
@@ -56,7 +44,7 @@ return {
 
 			-- Find the Git root directory from the current file's path
 			local git_root = vim.fn.systemlist('git -C ' ..
-			vim.fn.escape(current_dir, ' ') .. ' rev-parse --show-toplevel')[1]
+				vim.fn.escape(current_dir, ' ') .. ' rev-parse --show-toplevel')[1]
 			if vim.v.shell_error ~= 0 then
 				print 'Not a git repository. Searching on current working directory'
 				return cwd
@@ -108,5 +96,80 @@ return {
 		vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
 		vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 		vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
+
+		local telescope = require("telescope")
+
+		local ignored = {
+			"node_modules",
+			".git",
+			".next",
+			".turbo",
+			".vercel",
+			".expo",
+			".open-next",
+			".sst",
+			".pio",
+			"dist",
+			"build",
+			"out",
+			"yarn.lock",
+			"package-lock.json",
+			"pnpm-lock.yaml",
+			"npm-debug.log",
+			"yarn-debug.log",
+			"yarn-error.log",
+			".pnpm-debug.log",
+			".tsbuildinfo",
+		}
+
+		local rg_globs = {}
+
+		for _, pattern in ipairs(ignored) do
+			table.insert(rg_globs, "--glob")
+			table.insert(rg_globs, "!" .. pattern)
+		end
+
+		telescope.setup({
+			defaults = {
+				mappings = {
+
+					i = {
+						['<C-u>'] = false,
+						['<C-d>'] = false,
+					},
+				},
+				preview = {
+					treesitter = false,
+				},
+				prompt_prefix = "   ",
+				sorting_stratey = "ascending",
+				vimgrep_arguments = {
+					"rg",
+					"-L",
+					"-uu",
+					"--hidden",
+					"--color=never",
+					"--no-heading",
+					"--with-filename",
+					"--line-number",
+					"--column",
+					"--smart-case",
+					---@diagnostic disable-next-line: deprecated
+					unpack(rg_globs),
+				},
+			},
+			pickers = {
+				find_files = {
+					find_command = {
+						"rg",
+						"-uu",
+						"--files",
+						"--hidden",
+						---@diagnostic disable-next-line: deprecated
+						unpack(rg_globs),
+					},
+				},
+			},
+		})
 	end,
 }

@@ -31,5 +31,38 @@ return {
 		},
 	},
 	build = ':TSUpdate',
-
+	config = function()
+		require("nvim-treesitter.configs").setup({
+			autotag = {
+				enable = true,
+				filetypes = {
+					"html",
+					"javascript",
+					"javascriptreact",
+					"jsx",
+					"markdown",
+					"tsx",
+					"typescript",
+					"typescriptreact",
+					"prisma",
+				},
+			},
+			ensure_installed = {
+				"dockerfile",
+				"html",
+				"javascript",
+				"jsdoc",
+				"json",
+				"lua",
+				"markdown",
+				"prisma",
+				"python",
+				"sql",
+				"tsx",
+				"typescript",
+				"yaml",
+			},
+			highlight = { enable = true, additional_vim_regex_highlighting = false },
+		})
+	end,
 }

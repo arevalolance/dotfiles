@@ -40,11 +40,26 @@ export PATH=$PATH:"$HOME/.local/share/bob/nvim-bin"
 
 source $ZSH/oh-my-zsh.sh
 
-
-# pnpm
-export PNPM_HOME="/Users/lance.arevalo/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+# Check the operating system
+case "$(uname -s)" in
+  Darwin)   # macOS
+    # Commands for macOS
+    # pnpm
+    export PNPM_HOME="/Users/lance.arevalo/Library/pnpm"
+    case ":$PATH:" in
+      *":$PNPM_HOME:"*) ;;
+      *) export PATH="$PNPM_HOME:$PATH" ;;
+    esac
+    # pnpm end
+    ;;
+  MINGW*)   # Windows
+    # Commands for Windows
+    # pnpm
+    export PNPM_HOME="/home/sylvor/.local/share/pnpm"
+    case ":$PATH:" in
+      *":$PNPM_HOME:"*) ;;
+      *) export PATH="$PNPM_HOME:$PATH" ;;
+    esac
+    # pnpm end
+    ;;
 esac
-# pnpm end

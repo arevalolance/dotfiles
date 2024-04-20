@@ -432,3 +432,5 @@ mods = "Control"
 
 [window]
 opacity = 0.95
+decorations = "none"
+startup_mode = "maximized"

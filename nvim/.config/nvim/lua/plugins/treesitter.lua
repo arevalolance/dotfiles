@@ -45,6 +45,8 @@ return {
 					"typescript",
 					"typescriptreact",
 					"prisma",
+					"vue",
+					"astro"
 				},
 			},
 			ensure_installed = {
@@ -61,6 +63,8 @@ return {
 				"tsx",
 				"typescript",
 				"yaml",
+				"astro",
+				"vue"
 			},
 			highlight = { enable = true, additional_vim_regex_highlighting = false },
 		})

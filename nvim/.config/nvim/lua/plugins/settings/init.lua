@@ -98,6 +98,9 @@ return {
 				"tailwindcss",
 				"tsserver",
 				"yamlls",
+				"astro-language-server",
+				"vue",
+				"volar"
 			},
 		})
 

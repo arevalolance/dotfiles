@@ -41,7 +41,7 @@ return {
 		}
 
 		local function footer()
-			return "Do what you can't do!"
+			return "Do what you can't!"
 		end
 
 

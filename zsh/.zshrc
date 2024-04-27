@@ -12,8 +12,9 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(
     tmux
-    git
     zsh-autosuggestions
+    vi-mode
+    z
 )
 
 OS=$(uname)
@@ -34,6 +35,8 @@ alias vim="nvim"
 #fnm
 export PATH="$HOME/.local/share/fnm:$PATH"
 eval "$(fnm env)"
+
+eval "$(fzf --zsh)"
 
 # bob export
 export PATH=$PATH:"$HOME/.local/share/bob/nvim-bin"
@@ -63,3 +66,53 @@ case "$(uname -s)" in
     # pnpm end
     ;;
 esac
+
+gc() {
+  git branch | fzf-tmux -p --reverse | xargs git checkout
+}
+
+gca() {
+  git branch -a | fzf-tmux -p --reverse | awk '{gsub("remotes/origin/", "", $1); print $1}' | xargs git checkout
+}
+
+ghpr() {
+  _branch=$(git branch -a | fzf-tmux -p --reverse | awk '{gsub("remotes/origin/", "", $1); print $1}')
+  echo "gh pr create --base $_branch" | pbcopy > /dev/null
+  echo "Command has been copued to clipboard"
+}
+
+restore () {
+	if [[ "$1" == "omni" ]]
+	then
+		tmux split-window -h -l 50 'docker compose up'
+		tmux split-window -v 'cd packages/db && pnpm run db:studio --browser none'
+		tmux last-pane
+		pnpm run dev "${@:2}"
+	elif [[ "$1" == "ecm" ]]
+	then
+		echo "TODO: ecm"
+	else
+		echo "Invalid argument. Please provide 'omni' or 'ecm'."
+	fi
+}
+
+export EDITOR=nvim
+
+# Configurations
+bindkey -M viins jj vi-cmd-mode
+export VI_MODE_SET_CURSOR=true
+
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=1000000
+SAVEHIST=1000000
+setopt BANG_HIST
+setopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt HIST_VERIFY

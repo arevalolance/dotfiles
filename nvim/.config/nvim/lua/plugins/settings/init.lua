@@ -51,7 +51,7 @@ local on_attach = function(client, bufnr)
 	keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 	--[[ keymap(bufnr, "n", "gf", "<cmd>lua vim.lsp.buf.format()<CR>", opts) ]]
 	keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	-- keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 	keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 	keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	keymap(bufnr, "n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
@@ -98,8 +98,6 @@ return {
 				"tailwindcss",
 				"tsserver",
 				"yamlls",
-				"astro-language-server",
-				"vue",
 				"volar"
 			},
 		})

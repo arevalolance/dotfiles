@@ -35,6 +35,7 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- ez replace
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
+
 -- git
 vim.keymap.set("n", "<leader>gf", ":diffget //2<CR>", { desc = "Diff get Current" })
 vim.keymap.set("n", "<leader>gh", ":diffget //3<CR>", { desc = "Diff get Head" })

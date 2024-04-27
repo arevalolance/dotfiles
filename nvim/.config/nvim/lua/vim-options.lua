@@ -36,12 +36,19 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
+vim.opt.cursorline = true
 
--- Navigate vim panes better
-vim.keymap.set('n', '<c-k>', ':wincmd k<CR>')
-vim.keymap.set('n', '<c-j>', ':wincmd j<CR>')
-vim.keymap.set('n', '<c-h>', ':wincmd h<CR>')
-vim.keymap.set('n', '<c-l>', ':wincmd l<CR>')
+-- resize
+vim.keymap.set("n", "<C-Left>", [[<cmd>lua require("tmux").resize_left()<cr>]])
+vim.keymap.set("n", "<C-Down>", [[<cmd>lua require("tmux").resize_bottom()<cr>]])
+vim.keymap.set("n", "<C-Up>", [[<cmd>lua require("tmux").resize_top()<cr>]])
+vim.keymap.set("n", "<C-Right>", [[<cmd>lua require("tmux").resize_right()<cr>]])
+
+-- pane-switch
+vim.keymap.set("n", "<C-h>", [[<cmd>lua require("tmux").move_left()<cr>]])
+vim.keymap.set("n", "<C-j>", [[<cmd>lua require("tmux").move_bottom()<cr>]])
+vim.keymap.set("n", "<C-k>", [[<cmd>lua require("tmux").move_top()<cr>]])
+vim.keymap.set("n", "<C-l>", [[<cmd>lua require("tmux").move_right()<cr>]])
 
 -------------------------------------------------------------------------------
 -- [[ Setting Options ]]
@@ -76,7 +83,7 @@ if os.execute('uname -a | grep -q Microsoft') == 0 then
     },
     cache_enable = 0,
   }
-end 
+end
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -125,9 +132,7 @@ local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = t
 vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank()
-
   end,
   group = highlight_group,
   pattern = '*',
 })
-

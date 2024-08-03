@@ -6,7 +6,23 @@ return {
 		{
 			"windwp/nvim-ts-autotag",
 			config = function()
-				require("nvim-ts-autotag").setup()
+				require("nvim-ts-autotag").setup({
+					enable = true,
+					filetypes = {
+						"html",
+						"javascript",
+						"javascriptreact",
+						"jsx",
+						"markdown",
+						"tsx",
+						"typescript",
+						"typescriptreact",
+						"prisma",
+						"vue",
+						"astro"
+					},
+
+				})
 			end,
 
 		},
@@ -33,22 +49,6 @@ return {
 	build = ':TSUpdate',
 	config = function()
 		require("nvim-treesitter.configs").setup({
-			autotag = {
-				enable = true,
-				filetypes = {
-					"html",
-					"javascript",
-					"javascriptreact",
-					"jsx",
-					"markdown",
-					"tsx",
-					"typescript",
-					"typescriptreact",
-					"prisma",
-					"vue",
-					"astro"
-				},
-			},
 			ensure_installed = {
 				"dockerfile",
 				"html",

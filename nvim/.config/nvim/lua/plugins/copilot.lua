@@ -1,7 +1,7 @@
 local enable_ai = function()
 	local current_dir = vim.fn.getcwd()
 	local home_dir = os.getenv("HOME") or os.getenv("USERPROFILE")
-	local code_path = home_dir .. "/code"
+	local code_path = home_dir .. "/repos"
 
 	-- if git repo is filed under ~/code/_private, do not allow AI
 	local private_path = code_path .. "/_private"

@@ -1,6 +1,6 @@
 [user]
-	email = hi@arevalolance.com
-	name = arevalolance
+	email = lance.arevalo@focusglobalinc.com
+	name = lancearevalo-fgi
 [credential]
 	helper = cache --timeout=3600
 [credential "https://github.com"]

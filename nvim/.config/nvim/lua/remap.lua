@@ -44,3 +44,4 @@ vim.keymap.set("n", "<leader>dh", ":Ghdiffsplit<CR>", { desc = "Diff Horizontal"
 vim.keymap.set("n", "<leader>di", ":DiffviewOpen<CR>", { desc = "Diff View Open" })
 vim.keymap.set("n", "<leader>dh", ":DiffviewFileHistory<CR>", { desc = "Diff View File History" })
 vim.keymap.set("n", "<leader>dq", ":tabc<CR>", { desc = "Close Tab" })
+

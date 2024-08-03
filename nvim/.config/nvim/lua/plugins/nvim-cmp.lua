@@ -59,7 +59,6 @@ return {
 				{ name = "emoji",   insert = true },
 				{ name = "path" },
 				{ name = "luasnip" },
-				{ name = "codeium" },
 			}, {
 				{ name = "buffer" },
 				{ name = "spell" },
@@ -70,7 +69,6 @@ return {
 					mode = "symbol",
 					preset = "codicons",
 					maxwidth = 50,
-					symbol_map =  { Codeium = "", },
 					before = function(entry, vim_item)
 						vim_item.menu = ({
 							nvim_lsp = "[LSP ]",

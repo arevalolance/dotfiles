@@ -2,6 +2,9 @@
 
 DEPS=("stow" "ripgrep" "curl" "jq")
 
+WSL_DEP=("xclip", "win32yank")
+
+CARGO_DEPS=("bob-nvim", "tmux-sessionizer")
 
 OS=$(uname)
 
@@ -10,7 +13,16 @@ case $OS in
     . /etc/os-release
     case $ID in
       ubuntu|debian)
+        sudo add-apt-repository ppa:wslutilities/wslu -y
+        sudo apt install build-essential -y
+
         for dep in "${DEPS[@]}"; do
+          if ! [ -x "$(command -v "$dep")" ]; then
+            sudo apt-get install "$dep" -y
+          fi
+        done
+
+        for dep in "${WSL_DEP[@]}"; do
           if ! [ -x "$(command -v "$dep")" ]; then
             sudo apt-get install "$dep" -y
           fi
@@ -24,9 +36,7 @@ case $OS in
   ;;
   Darwin)  # MacOS
     for dep in "${DEPS[@]}"; do
-
       if ! [ -x "$(command -v "$dep")"]; then
-
         brew install "$dep"
       fi
     done
@@ -37,11 +47,18 @@ case $OS in
   ;;
 esac
 
+for dep in "${CARGO_DEPS[@]}"; do
+  if ! [ -x "$(command -v "$dep")" ]; then
+    cargo install "$dep"
+  fi
+done
+
 cd $HOME/dotfiles
 
 stow nvim
 stow alacritty
 stow tmux
+stow git
 
 rm -rf ~/.zshrc
 

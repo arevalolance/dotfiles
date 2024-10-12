@@ -3,3 +3,6 @@ git/.config/gh/hosts.yml.personal
 git/.config/gh/hosts.yml
 
 git/.gitconfig.work
+
+lazygit
+lazygit.tar.gz

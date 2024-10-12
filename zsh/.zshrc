@@ -36,8 +36,6 @@ alias vim="nvim"
 export PATH="$HOME/.local/share/fnm:$PATH"
 eval "$(fnm env)"
 
-eval "$(fzf --zsh)"
-
 # bob export
 export PATH=$PATH:"$HOME/.local/share/bob/nvim-bin"
 
@@ -47,6 +45,7 @@ source $ZSH/oh-my-zsh.sh
 case "$(uname -s)" in
   Darwin)   # macOS
     # Commands for macOS
+    eval "$(fzf --zsh)"
     # pnpm
     export PNPM_HOME="/Users/lance.arevalo/Library/pnpm"
     case ":$PATH:" in
@@ -57,6 +56,7 @@ case "$(uname -s)" in
     ;;
   MINGW*)   # Windows
     # Commands for Windows
+    eval "$(fzf)"
     # pnpm
     export PNPM_HOME="/home/sylvor/.local/share/pnpm"
     case ":$PATH:" in
@@ -116,3 +116,18 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY
+
+# fnm
+FNM_PATH="/home/sylvor/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="/home/sylvor/.local/share/fnm:$PATH"
+  eval "`fnm env`"
+fi
+
+# pnpm
+export PNPM_HOME="/home/sylvor/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

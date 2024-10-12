@@ -94,7 +94,8 @@ return {
 				"pylsp",
 				"pyright",
 				"tailwindcss",
-				"tsserver",
+				"ts_ls",
+				"biome",
 				"yamlls",
 				"volar"
 			},
@@ -120,8 +121,8 @@ return {
 
 				lspconfig[server_name].setup(opts)
 			end,
-			["tsserver"] = function()
-				lspconfig.tsserver.setup({
+			["ts_ls"] = function()
+				lspconfig.ts_ls.setup({
 					capabilities = opts.capabilities,
 					on_attach = opts.on_attach,
 					handlers = {

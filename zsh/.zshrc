@@ -39,8 +39,6 @@ eval "$(fnm env)"
 # bob export
 export PATH=$PATH:"$HOME/.local/share/bob/nvim-bin"
 
-source $ZSH/oh-my-zsh.sh
-
 # Check the operating system
 case "$(uname -s)" in
   Darwin)   # macOS
@@ -67,14 +65,17 @@ case "$(uname -s)" in
     ;;
 esac
 
+unalias gc 2>/dev/null
 gc() {
   git branch | fzf-tmux -p --reverse | xargs git checkout
 }
 
+unalias gca 2>/dev/null
 gca() {
   git branch -a | fzf-tmux -p --reverse | awk '{gsub("remotes/origin/", "", $1); print $1}' | xargs git checkout
 }
 
+unalias ghpr 2>/dev/null
 ghpr() {
   _branch=$(git branch -a | fzf-tmux -p --reverse | awk '{gsub("remotes/origin/", "", $1); print $1}')
   echo "gh pr create --base $_branch" | pbcopy > /dev/null
@@ -131,3 +132,17 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# fnm
+FNM_PATH="/Users/arevalolance/Library/Application Support/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="/Users/arevalolance/Library/Application Support/fnm:$PATH"
+  eval "`fnm env`"
+fi
+
+export PATH=$PATH:$PATH/cargo/bin
+
+source $ZSH/oh-my-zsh.sh
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/arevalolance/.cache/lm-studio/bin"

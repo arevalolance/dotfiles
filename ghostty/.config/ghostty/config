@@ -3,7 +3,7 @@ window-decoration=false
 fullscreen=true
 macos-non-native-fullscreen=visible-menu
 
-theme = rose-pine
+theme = oxocarbon
 
 # green
 palette = 2=#31748f

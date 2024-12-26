@@ -146,3 +146,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/arevalolance/.cache/lm-studio/bin"
+
+# aider
+export PATH="$PATH:/Users/arevalolance/Library/Python/3.9/bin"
+export PATH="/Users/arevalolance/.local/bin:$PATH"

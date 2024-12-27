@@ -1,4 +1,5 @@
-background-opacity=0.9
+window-padding-color = background
+background-opacity=0.95
 window-decoration=false
 fullscreen=true
 macos-non-native-fullscreen=visible-menu
@@ -15,4 +16,5 @@ palette = 12=#9ccfd8
 selection-background = #403d52
 
 font-size = 14
-font-family = "JetBrainsMono NFM Regular"
+font-family = "JetBrainsMono Nerd Font Mono"
+font-feature = -liga

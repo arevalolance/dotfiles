@@ -29,6 +29,7 @@ alias python="python3"
 alias pip="pip3"
 alias vim="nvim"
 alias aider="aider --config ~/.aider.conf.yaml --env-file ~/.aider.env"
+alias todos="nvim ~/dotfiles/todos/.config/todos/todos.txt"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

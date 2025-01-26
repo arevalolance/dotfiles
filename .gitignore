@@ -8,3 +8,8 @@ lazygit
 lazygit.tar.gz
 
 todos/.config/todos/todos.txt
+
+# only ignore on root folder
+.aider*
+
+!aider/*

@@ -69,5 +69,7 @@ stow zsh
 
 cp -r ~/widgets/todos "~/Library/Application Support/Übersicht/widgets/todos"
 
+stow aider
+
 echo "[✅] - Stowing done."
 

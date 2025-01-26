@@ -67,5 +67,7 @@ git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUST
 
 stow zsh
 
+cp -r ~/widgets/todos "~/Library/Application Support/Übersicht/widgets/todos"
+
 echo "[✅] - Stowing done."
 

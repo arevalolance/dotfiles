@@ -150,3 +150,4 @@ export PATH="$PATH:/Users/arevalolance/.cache/lm-studio/bin"
 # aider
 export PATH="$PATH:/Users/arevalolance/Library/Python/3.9/bin"
 export PATH="/Users/arevalolance/.local/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"

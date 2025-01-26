@@ -2,7 +2,7 @@ window-padding-color = background
 background-opacity=0.95
 window-decoration=false
 fullscreen=true
-macos-non-native-fullscreen=visible-menu
+macos-non-native-fullscreen=false
 
 theme = oxocarbon
 

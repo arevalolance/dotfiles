@@ -47,13 +47,20 @@ export const render = ({ output, error }) => {
     }
   }
 
-  const sortedTasks = tasks.sort((a, b) => b.timestamp - a.timestamp);
+  // Get today's date in YYYY-MM-DD format
+  const today = new Date();
+  const todayString = today.toISOString().split('T')[0]; // Use local time methods if timezone is an issue
 
-  if (sortedTasks.length === 0) {
-    return <div style={containerStyle}>No pending tasks</div>;
+  // Filter tasks to only those due today
+  const todaysTasks = tasks.filter(task => task.date === todayString);
+
+  if (todaysTasks.length === 0) {
+    return null; // Return nothing if no tasks for today
   }
 
-  const latest = sortedTasks[0];
+  // Display the first task due today (sorted as per the file's order)
+  const latestTask = todaysTasks[0];
+
   return (
     <div 
       style={containerStyle}
@@ -66,7 +73,7 @@ export const render = ({ output, error }) => {
         e.currentTarget.style.overflow = 'hidden';
       }}
     >
-      {latest.task}
+      {latestTask.task}
     </div>
   );
 };

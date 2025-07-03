@@ -63,7 +63,6 @@ return {
 	dependencies = {
 		{ "williamboman/mason.nvim", build = ":MasonUpdate" },
 		{ "j-hui/fidget.nvim",       opts = {},             tag = "legacy" },
-		"williamboman/mason-lspconfig.nvim",
 		"davidosomething/format-ts-errors.nvim",
 		"princejoogie/tailwind-highlight.nvim",
 		"hrsh7th/cmp-nvim-lsp",
@@ -71,35 +70,10 @@ return {
 		"folke/neodev.nvim",
 	},
 	config = function()
-		local mlsp = require("mason-lspconfig")
 		local lspconfig = require("lspconfig")
 
 		require("lspconfig.ui.windows").default_options.border = "rounded"
 		require("mason").setup({ ui = { border = "rounded" } })
-
-		mlsp.setup({
-			ensure_installed = {
-				"astro",
-				"bashls",
-				"cssls",
-				"cssmodules_ls",
-				"dockerls",
-				"emmet_ls",
-				"eslint",
-				"graphql",
-				"html",
-				"jsonls",
-				"lua_ls",
-				"prismals",
-				"pylsp",
-				"pyright",
-				"tailwindcss",
-				"ts_ls",
-				"biome",
-				"yamlls",
-				"volar"
-			},
-		})
 
 		setupConfig()
 
@@ -111,43 +85,63 @@ return {
 			on_attach = on_attach,
 		}
 
-		mlsp.setup_handlers({
-			function(server_name)
-				local custom_opts_status, custom_opts = pcall(require, "plugins.lspconfig.settings." .. server_name)
+		-- Setup LSP servers manually
+		local servers = {
+			"astro",
+			"bashls",
+			"cssls",
+			"cssmodules_ls",
+			"dockerls",
+			"emmet_ls",
+			"eslint",
+			"graphql",
+			"html",
+			"jsonls",
+			"lua_ls",
+			"prismals",
+			"pylsp",
+			"pyright",
+			"tailwindcss",
+			"biome",
+			"yamlls"
+		}
 
-				if custom_opts_status then
-					opts = vim.tbl_deep_extend("force", custom_opts, opts)
-				end
+		for _, server in ipairs(servers) do
+			local custom_opts_status, custom_opts = pcall(require, "plugins.lspconfig.settings." .. server)
+			local server_opts = opts
 
-				lspconfig[server_name].setup(opts)
-			end,
-			["ts_ls"] = function()
-				lspconfig.ts_ls.setup({
-					capabilities = opts.capabilities,
-					on_attach = opts.on_attach,
-					handlers = {
-						["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
-							if result.diagnostics == nil then
-								return
-							end
+			if custom_opts_status then
+				server_opts = vim.tbl_deep_extend("force", custom_opts, opts)
+			end
 
-							local idx = 1
+			lspconfig[server].setup(server_opts)
+		end
 
-							while idx <= #result.diagnostics do
-								local entry = result.diagnostics[idx]
-								local formatter = require("format-ts-errors")[entry.code]
-								entry.message = formatter and formatter(entry.message) or entry.message
-								if entry.code == 80001 then
-									table.remove(result.diagnostics, idx)
-								else
-									idx = idx + 1
-								end
-							end
-							vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
-						end,
-					},
-				})
-			end,
+		-- Special setup for TypeScript with custom handlers
+		lspconfig.ts_ls.setup({
+			capabilities = opts.capabilities,
+			on_attach = opts.on_attach,
+			handlers = {
+				["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+					if result.diagnostics == nil then
+						return
+					end
+
+					local idx = 1
+
+					while idx <= #result.diagnostics do
+						local entry = result.diagnostics[idx]
+						local formatter = require("format-ts-errors")[entry.code]
+						entry.message = formatter and formatter(entry.message) or entry.message
+						if entry.code == 80001 then
+							table.remove(result.diagnostics, idx)
+						else
+							idx = idx + 1
+						end
+					end
+					vim.lsp.handlers["textDocument/publishDiagnostics"](_, result, ctx, config)
+				end,
+			},
 		})
 	end,
 }

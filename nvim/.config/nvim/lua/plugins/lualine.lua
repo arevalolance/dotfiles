@@ -199,41 +199,6 @@ local emptySeparators = { left = "", right = "" }
 
 
 local lualineConfig = {
-	-- INFO using the tabline will override vim's default tabline, so the tabline
-	-- should always include the tab element
-
-	tabline = {
-
-		lualine_a = {
-			-- INFO setting different section separators in the same components has
-			-- yanky results, they should have the same separator
-
-			-- searchcounter at the top, so it work with cmdheight=0
-			{ clock, section_separators = emptySeparators },
-
-			{
-
-				"tabs",
-				mode = 1,
-				max_length = vim.o.columns * 0.7,
-				section_separators = emptySeparators,
-
-				cond = function() return fn.tabpagenr("$") > 1 end,
-			},
-		},
-		lualine_b = {
-			{ navicBreadcrumbs, section_separators = topSeparators },
-		},
-		lualine_c = {},
-		lualine_x = {},
-
-		-- INFO dap and recording status defined in the respective plugin configs
-		-- for lualine_y and lualine_z for their lazy loading
-		lualine_y = {
-			{ markM },
-		},
-		lualine_z = {},
-	},
 	sections = {
 		lualine_a = {
 			{ "branch", cond = isStandardBranch },

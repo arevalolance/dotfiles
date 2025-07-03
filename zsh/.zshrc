@@ -25,8 +25,7 @@ case $OS in
 esac
 
 # Aliases
-alias python="python3"
-alias pip="pip3"
+alias python="python3" alias pip="pip3"
 alias vim="nvim"
 alias aider="aider --config ~/.aider.conf.yaml --env-file ~/.aider.env"
 alias todos="nvim ~/dotfiles/todos/.config/todos/todos.txt"
@@ -47,7 +46,7 @@ case "$(uname -s)" in
     # Commands for macOS
     eval "$(fzf --zsh)"
     # pnpm
-    export PNPM_HOME="/Users/lance.arevalo/Library/pnpm"
+    export PNPM_HOME="/Users/arevalolance/Library/pnpm"
     case ":$PATH:" in
       *":$PNPM_HOME:"*) ;;
       *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -91,11 +90,31 @@ restore () {
 		tmux split-window -v 'cd packages/db && pnpm run db:studio --browser none'
 		tmux last-pane
 		pnpm run dev "${@:2}"
-	elif [[ "$1" == "ecm" ]]
+	elif [[ "$1" == "wrestling" ]]
 	then
-		echo "TODO: ecm"
+		# Ensure we are in the project root (optional, adjust path if needed)
+		# cd /path/to/your/wrestling/project || return 1
+
+		# Split the current window horizontally, creating a right pane.
+		# Run the webpack dev server in the new right pane.
+		# Adjust percentage with -p if needed, or -l for fixed size
+		tmux split-window -h 'WIQ_ENV=local ./bin/webpack-dev-server'
+
+		# Select the newly created right pane (usually index 1)
+		tmux select-pane -t 1
+
+		# Split the selected (right) pane vertically, creating a bottom pane.
+		# Run Sidekiq in this new bottom-right pane.
+		tmux split-window -v 'sidekiq -q within_five_seconds -q within_five_minutes -q within_five_hours -q high_memory -q digital_ocean'
+
+		# Select the original top-left pane (usually index 0)
+		tmux select-pane -t 0
+
+		# Finally, run the rails server in the selected top-left pane.
+		# This command replaces the current shell process in this pane.
+		rails s
 	else
-		echo "Invalid argument. Please provide 'omni' or 'ecm'."
+		echo "Invalid argument. Please provide 'omni' or 'wrestling'."
 	fi
 }
 
@@ -153,3 +172,13 @@ export PATH="$PATH:/Users/arevalolance/.cache/lm-studio/bin"
 export PATH="$PATH:/Users/arevalolance/Library/Python/3.9/bin"
 export PATH="/Users/arevalolance/.local/bin:$PATH"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+export PNPM_HOME="$HOME/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="/opt/homebrew/opt/imagemagick@6/bin:$PATH"
+
+# Add rover (GraphQL)
+export PATH="$PATH:$HOME/.rover/bin"
+

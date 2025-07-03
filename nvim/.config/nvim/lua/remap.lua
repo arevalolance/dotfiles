@@ -32,9 +32,14 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
--- ez replace
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-
+-- ez replace (different versions for VSCode and regular Neovim)
+if vim.g.vscode then
+    -- VSCode-neovim version
+    vim.keymap.set("n", "<leader>s", "*:%s/<C-r>///g<Left><Left>")
+else
+    -- Regular Neovim version
+    vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+end
 
 -- git
 vim.keymap.set("n", "<leader>gf", ":diffget //2<CR>", { desc = "Diff get Current" })
@@ -45,3 +50,11 @@ vim.keymap.set("n", "<leader>di", ":DiffviewOpen<CR>", { desc = "Diff View Open"
 vim.keymap.set("n", "<leader>dh", ":DiffviewFileHistory<CR>", { desc = "Diff View File History" })
 vim.keymap.set("n", "<leader>dq", ":tabc<CR>", { desc = "Close Tab" })
 
+-- Config reload
+vim.keymap.set("n", "<leader>sv", function()
+    vim.cmd("source %")
+    -- Optional: Add VSCode notification
+    if vim.g.vscode then
+        vim.fn.VSCodeNotify('workbench.action.reloadWindow')
+    end
+end, { desc = "Source config" })

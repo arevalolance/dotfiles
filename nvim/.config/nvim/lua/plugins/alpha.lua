@@ -3,6 +3,9 @@ return {
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 	},
+	cond = function()
+		return vim.g.vscode == nil
+	end,
 
 	config = function()
 		local alpha = require("alpha")

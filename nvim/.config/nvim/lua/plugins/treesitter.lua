@@ -1,6 +1,7 @@
 return {
 	-- Highlight, edit, and navigate code
 	'nvim-treesitter/nvim-treesitter',
+	enabled = not vim.g.vscode,
 	dependencies = {
 		'nvim-treesitter/nvim-treesitter-textobjects',
 		{
@@ -19,7 +20,8 @@ return {
 						"typescriptreact",
 						"prisma",
 						"vue",
-						"astro"
+						"astro",
+						"terraform"
 					},
 
 				})
@@ -64,7 +66,8 @@ return {
 				"typescript",
 				"yaml",
 				"astro",
-				"vue"
+				"vue",
+				"terraform"
 			},
 			highlight = { enable = true, additional_vim_regex_highlighting = false },
 		})

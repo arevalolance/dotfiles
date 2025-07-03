@@ -289,4 +289,7 @@ return {
 	lazy = false, -- load immediately so there is no flickering
 	dependencies = "nvim-tree/nvim-web-devicons",
 	opts = lualineConfig,
+	cond = function()
+		return vim.g.vscode == nil
+	end,
 }
